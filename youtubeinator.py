@@ -32,13 +32,6 @@ class VideoDownloadParameters:
         self.sb = sponsorblock
         self.sb_categories = sponsorblock_cats
         self.sb_api = sponsorblock_api
-    def shellcommand_tres(self):
-        if os.name == 'nt':
-            return f"del out.tmp"
-        elif os.name == 'posix':
-            return f"rm out.tmp"
-        else:
-            print("Unknown OS, you gotta delete the file yourself :/")
     def shellcommand_dos(self,outf):
         return f"{fm} -i out.tmp -vf \"scale={self.resolution}\" {outf}"
     def shellcommand_uno(self,ytid):
@@ -54,4 +47,3 @@ class VideoDownload:
     def start(self):
         os.system(self.param.shellcommand_uno(self.ytid))
         os.system(self.param.shellcommand_dos(self.outf))
-        os.system(self.param.shellcommand_tres())
