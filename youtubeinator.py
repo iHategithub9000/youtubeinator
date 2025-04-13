@@ -46,4 +46,12 @@ class VideoDownload:
         self.outf = outf
     def start(self):
         os.system(self.param.shellcommand_uno(self.ytid))
+        files = [f for f in os.listdir('.') if f.startswith('out.tmp.') and os.path.isfile(f)]
+        if files:
+            files.sort(key=lambda f: os.path.getmtime(f), reverse=True)
+            latest_file = files[0]
+            for file in files[1:]:
+                os.remove(file)
+            os.rename(latest_file, 'out.tmp')
         os.system(self.param.shellcommand_dos(self.outf))
+        os.remove('out.tmp')
